@@ -16,6 +16,7 @@ BuildRequires:	pkgconfig(OGRE)
 BuildRequires:	pkgconfig(OIS)
 BuildRequires:	pkgconfig(openal)
 BuildRequires:	pkgconfig(sndfile)
+BuildRequires:	pkgconfig(uuid)
 # Looks like it's needed to build in "package" mode
 BuildRequires:	dpkg
 
