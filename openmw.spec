@@ -1,6 +1,6 @@
 Name:		openmw
 Version:	0.20.0
-Release:	1
+Release:	2
 Summary:	A reimplementation of The Elder Scrolls III: Morrowind
 Group:		Games/Adventure
 License:	GPLv3
@@ -16,9 +16,9 @@ BuildRequires:	pkgconfig(OGRE)
 BuildRequires:	pkgconfig(OIS)
 BuildRequires:	pkgconfig(openal)
 BuildRequires:	pkgconfig(sndfile)
-BuildRequires:	pkgconfig(uuid)
 # Looks like it's needed to build in "package" mode
 BuildRequires:	dpkg
+Requires:	ogre
 
 %description
 OpenMW is an engine for 2002's game The Elder Scrolls 3: Morrowind.
@@ -31,7 +31,7 @@ You will still need the original game data to play OpenMW.
 %setup -q
 
 %build
-%cmake
+%cmake -DOGRE_PLUGIN_DIR=%{_libdir}/OGRE
 # Too greedy for resources
 make
 
