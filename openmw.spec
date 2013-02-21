@@ -1,14 +1,15 @@
 Name:		openmw
-Version:	0.20.0
-Release:	4
+Version:	0.21.0
+Release:	1
 Summary:	A reimplementation of The Elder Scrolls III: Morrowind
 Group:		Games/Adventure
 License:	GPLv3
 URL:		https://openmw.org
-Source:		https://openmw.googlecode.com/files/%{name}_%{version}.orig.tar.bz2
+Source:		https://openmw.googlecode.com/files/%{name}-%{version}.zip
 BuildRequires:	cmake
-BuildRequires:	boost-devel
 BuildRequires:	ogre
+BuildRequires:	boost-devel
+BuildRequires:	ffmpeg-devel
 BuildRequires:	qt4-devel
 BuildRequires:	pkgconfig(bullet)
 BuildRequires:	pkgconfig(libmpg123)
@@ -30,7 +31,7 @@ implementation of the game's engine and functionality.
 You will still need the original game data to play OpenMW.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{name}-%{version}
 
 %build
 %cmake -DOGRE_PLUGIN_DIR=%{_libdir}/OGRE
