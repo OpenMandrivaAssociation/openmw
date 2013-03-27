@@ -1,11 +1,11 @@
 Name:		openmw
-Version:	0.21.0
+Version:	0.22.0
 Release:	1
 Summary:	A reimplementation of The Elder Scrolls III: Morrowind
 Group:		Games/Adventure
 License:	GPLv3
 URL:		https://openmw.org
-Source:		https://openmw.googlecode.com/files/%{name}-%{version}.zip
+Source:		https://openmw.googlecode.com/files/%{name}-%{version}-source.tar.gz
 BuildRequires:	cmake
 BuildRequires:	ogre
 BuildRequires:	boost-devel
