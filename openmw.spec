@@ -45,6 +45,7 @@ make
 %{_sysconfdir}/%{name}
 %{_gamesbindir}/%{name}
 %{_gamesbindir}/omwlauncher
+%{_gamesbindir}/mwiniimport
 %{_gamesdatadir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
