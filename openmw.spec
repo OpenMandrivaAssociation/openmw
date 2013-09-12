@@ -1,9 +1,9 @@
 Summary:	A reimplementation of The Elder Scrolls III: Morrowind
 Name:		openmw
-Version:	0.25.0
+Version:	0.26.0
 Release:	1
 Group:		Games/Adventure
-License:	GPLv3
+License:	GPLv3+
 Url:		https://openmw.org
 Source:		https://openmw.googlecode.com/files/%{name}-%{version}-source.tar.gz
 BuildRequires:	cmake
@@ -13,6 +13,7 @@ BuildRequires:	ffmpeg-devel
 BuildRequires:	qt4-devel
 BuildRequires:	pkgconfig(bullet)
 BuildRequires:	pkgconfig(libmpg123)
+BuildRequires:	pkgconfig(libunshield)
 BuildRequires:	pkgconfig(MYGUI)
 BuildRequires:	pkgconfig(OGRE)
 BuildRequires:	pkgconfig(OIS)
@@ -41,6 +42,10 @@ make
 
 %install
 %makeinstall_std -C build
+
+# Drop for now
+rm -f %{buildroot}%{_datadir}/applications/opencs.desktop
+rm -f %{buildroot}%{_datadir}/pixmaps/opencs.png
 
 %files
 %{_sysconfdir}/%{name}
