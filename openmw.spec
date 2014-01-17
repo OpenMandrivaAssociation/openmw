@@ -1,11 +1,12 @@
 Summary:	A reimplementation of The Elder Scrolls III: Morrowind
 Name:		openmw
-Version:	0.26.0
-Release:	2
+Version:	0.28.0
+Release:	1
 Group:		Games/Adventure
 License:	GPLv3+
 Url:		https://openmw.org
-Source:		https://openmw.googlecode.com/files/%{name}-%{version}-source.tar.gz
+Source0:	https://openmw.googlecode.com/files/%{name}-%{name}-%{version}.tar.gz
+Patch0:		openmw-0.28.0-desktop.patch
 BuildRequires:	cmake
 BuildRequires:	ogre
 BuildRequires:	boost-devel
@@ -33,7 +34,8 @@ implementation of the game's engine and functionality.
 You will still need the original game data to play OpenMW.
 
 %prep
-%setup -q -c
+%setup -qn %{name}-%{name}-%{version}
+%patch0 -p1
 
 %build
 %cmake -DOGRE_PLUGIN_DIR=%{_libdir}/OGRE
@@ -43,16 +45,16 @@ make
 %install
 %makeinstall_std -C build
 
-# Drop for now
-rm -f %{buildroot}%{_datadir}/applications/opencs.desktop
-rm -f %{buildroot}%{_datadir}/pixmaps/opencs.png
-
 %files
-%{_sysconfdir}/%{name}
-%{_gamesbindir}/%{name}
-%{_gamesbindir}/omwlauncher
-%{_gamesbindir}/mwiniimport
-%{_gamesdatadir}/%{name}
+%{_sysconfdir}/%{name}/
+%{_bindir}/%{name}
+%{_bindir}/opencs
+%{_bindir}/omwlauncher
+%{_bindir}/esmtool
+%{_bindir}/mwiniimport
+%{_gamesdatadir}/%{name}/
 %{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/opencs.desktop
 %{_datadir}/pixmaps/%{name}.png
-
+%{_datadir}/pixmaps/opencs.png
+%{_datadir}/licenses/%{name}/
