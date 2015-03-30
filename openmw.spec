@@ -1,12 +1,12 @@
 Summary:	A reimplementation of The Elder Scrolls III: Morrowind
 Name:		openmw
-Version:	0.28.0
-Release:	2
+Version:	0.35.1
+Release:	1
 Group:		Games/Adventure
 License:	GPLv3+
 Url:		https://openmw.org
-Source0:	https://openmw.googlecode.com/files/%{name}-%{name}-%{version}.tar.gz
-Patch0:		openmw-0.28.0-desktop.patch
+Source0:	https://github.com/OpenMW/openmw/archive/%{name}-%{version}.tar.gz
+Source1:	%{name}.rpmlintrc
 BuildRequires:	cmake
 BuildRequires:	ogre
 BuildRequires:	boost-devel
@@ -22,6 +22,7 @@ BuildRequires:	pkgconfig(openal)
 BuildRequires:	pkgconfig(sdl2)
 BuildRequires:	pkgconfig(sndfile)
 BuildRequires:	pkgconfig(uuid)
+BuildRequires:	tinyxml-devel
 # Looks like it's needed to build in "package" mode
 BuildRequires:	dpkg
 Requires:	ogre
@@ -35,12 +36,17 @@ You will still need the original game data to play OpenMW.
 
 %prep
 %setup -qn %{name}-%{name}-%{version}
-%patch0 -p1
+%apply_patches
+
+# Remove bundled tinyxml files
+rm -f extern/oics/tiny*.
 
 %build
-%cmake -DOGRE_PLUGIN_DIR=%{_libdir}/OGRE
-# Too greedy for resources
-make
+%cmake_qt4 -DOGRE_PLUGIN_DIR=%{_libdir}/OGRE \
+	-DUSE_SYSTEM_TINYXML=ON \
+	-DMORROWIND_DATA_FILES=%{_datadir}/games/morrowind
+
+%make
 
 %install
 %makeinstall_std -C build
@@ -48,13 +54,17 @@ make
 %files
 %{_sysconfdir}/%{name}/
 %{_bindir}/%{name}
-%{_bindir}/opencs
-%{_bindir}/omwlauncher
+%{_bindir}/openmw-cs
+%{_bindir}/openmw-launcher
+%{_bindir}/openmw-essimporter
+%{_bindir}/openmw-wizard
 %{_bindir}/esmtool
-%{_bindir}/mwiniimport
+%{_bindir}/openmw-iniimporter
+%{_bindir}/bsatool
+%{_libdir}/Plugin_MyGUI_OpenMW_Resources.so
 %{_gamesdatadir}/%{name}/
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/applications/opencs.desktop
+%{_datadir}/applications/openmw-cs.desktop
 %{_datadir}/pixmaps/%{name}.png
-%{_datadir}/pixmaps/opencs.png
+%{_datadir}/pixmaps/openmw-cs.png
 %{_datadir}/licenses/%{name}/
