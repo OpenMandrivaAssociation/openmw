@@ -1,6 +1,6 @@
 Summary:	A reimplementation of The Elder Scrolls III: Morrowind
 Name:		openmw
-Version:	0.35.1
+Version:	0.39.0
 Release:	1
 Group:		Games/Adventure
 License:	GPLv3+
@@ -13,6 +13,7 @@ BuildRequires:	boost-devel
 BuildRequires:	ffmpeg-devel
 BuildRequires:	qt4-devel
 BuildRequires:	pkgconfig(bullet)
+BuildRequires:	pkgconfig(openscenegraph)
 BuildRequires:	pkgconfig(libmpg123)
 BuildRequires:	pkgconfig(libunshield)
 BuildRequires:	pkgconfig(MYGUI)
@@ -44,6 +45,7 @@ rm -f extern/oics/tiny*.
 %build
 %cmake_qt4 -DOGRE_PLUGIN_DIR=%{_libdir}/OGRE \
 	-DUSE_SYSTEM_TINYXML=ON \
+	-DBUILD_UNITTESTS=OFF \
 	-DMORROWIND_DATA_FILES=%{_datadir}/games/morrowind
 
 %make
@@ -62,6 +64,7 @@ rm -f extern/oics/tiny*.
 %{_bindir}/openmw-iniimporter
 %{_bindir}/bsatool
 %{_libdir}/Plugin_MyGUI_OpenMW_Resources.so
+%{_datadir}/appdata/openmw.appdata.xml
 %{_gamesdatadir}/%{name}/
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/applications/openmw-cs.desktop
