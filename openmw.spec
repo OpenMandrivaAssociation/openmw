@@ -24,8 +24,6 @@ BuildRequires:	pkgconfig(sdl2)
 BuildRequires:	pkgconfig(sndfile)
 BuildRequires:	pkgconfig(uuid)
 BuildRequires:	tinyxml-devel
-# Looks like it's needed to build in "package" mode
-BuildRequires:	dpkg
 Requires:	ogre
 
 %description
