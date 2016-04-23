@@ -63,7 +63,6 @@ rm -f extern/oics/tiny*.
 %{_bindir}/esmtool
 %{_bindir}/openmw-iniimporter
 %{_bindir}/bsatool
-%{_libdir}/Plugin_MyGUI_OpenMW_Resources.so
 %{_datadir}/appdata/openmw.appdata.xml
 %{_gamesdatadir}/%{name}/
 %{_datadir}/applications/%{name}.desktop
