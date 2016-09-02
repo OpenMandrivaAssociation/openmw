@@ -1,6 +1,6 @@
 Summary:	A reimplementation of The Elder Scrolls III: Morrowind
 Name:		openmw
-Version:	0.39.0
+Version:	0.40.0
 Release:	1
 Group:		Games/Adventure
 License:	GPLv3+
@@ -11,7 +11,7 @@ BuildRequires:	cmake
 BuildRequires:	ogre
 BuildRequires:	boost-devel
 BuildRequires:	ffmpeg-devel
-BuildRequires:	qt4-devel
+BuildRequires:	qt5-devel
 BuildRequires:	pkgconfig(bullet)
 BuildRequires:	pkgconfig(openscenegraph)
 BuildRequires:	pkgconfig(libmpg123)
@@ -39,11 +39,20 @@ You will still need the original game data to play OpenMW.
 
 # Remove bundled tinyxml files
 rm -f extern/oics/tiny*.
+# We don't install license files
+sed -e '/LICDIR/d' -i CMakeLists.txt
+# Use the system tinyxml headers
+sed -e 's/"tinyxml.h"/<tinyxml.h>/g' \
+	-e 's/"tinystr.h"/<tinystr.h>/g' \
+	-i extern/oics/ICSPrerequisites.h
+
+
 
 %build
-%cmake_qt4 -DOGRE_PLUGIN_DIR=%{_libdir}/OGRE \
+%cmake  -DOGRE_PLUGIN_DIR=%{_libdir}/OGRE \
 	-DUSE_SYSTEM_TINYXML=ON \
 	-DBUILD_UNITTESTS=OFF \
+	-DDESIRED_QT_VERSION=5 \
 	-DMORROWIND_DATA_FILES=%{_datadir}/games/morrowind
 
 %make
@@ -67,4 +76,3 @@ rm -f extern/oics/tiny*.
 %{_datadir}/applications/openmw-cs.desktop
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/pixmaps/openmw-cs.png
-%{_datadir}/licenses/%{name}/
