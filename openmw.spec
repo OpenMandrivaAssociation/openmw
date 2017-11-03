@@ -1,7 +1,7 @@
 Summary:	A reimplementation of The Elder Scrolls III: Morrowind
 Name:		openmw
-Version:	0.41.0
-Release:	2
+Version:	0.42.0
+Release:	1
 Group:		Games/Adventure
 License:	GPLv3+
 Url:		https://openmw.org
@@ -70,7 +70,7 @@ sed -e 's/"tinyxml.h"/<tinyxml.h>/g' \
 %{_bindir}/esmtool
 %{_bindir}/openmw-iniimporter
 %{_bindir}/bsatool
-%{_datadir}/appdata/openmw.appdata.xml
+%{_datadir}/metainfo/openmw.appdata.xml
 %{_gamesdatadir}/%{name}/
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/applications/openmw-cs.desktop
