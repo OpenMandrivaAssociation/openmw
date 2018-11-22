@@ -23,6 +23,7 @@ BuildRequires:	pkgconfig(openal)
 BuildRequires:	pkgconfig(sdl2)
 BuildRequires:	pkgconfig(sndfile)
 BuildRequires:	pkgconfig(uuid)
+BuildRequires:	pkgconfig(xt)
 BuildRequires:	tinyxml-devel
 Requires:	ogre
 
