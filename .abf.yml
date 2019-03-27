@@ -1,4 +1,2 @@
-removed_sources:
-  openmw-0.42.0.tar.gz: c06c28ffa10df14140756cd59c02e7e86be8b872
 sources:
-  openmw-0.44.0.tar.gz: 4c6102bcebd51b226a54111222e81497d0ab2eb8
+  openmw-0.45.0.tar.gz: c5986c9639859b7d3de10b9b0d04ce1e105d9a54
