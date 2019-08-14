@@ -5,7 +5,7 @@ Release:	1
 Group:		Games/Adventure
 License:	GPLv3+
 Url:		https://openmw.org
-Source0:	https://github.com/OpenMW/openmw/archive/%{name}-%{version}.tar.gz
+Source0:	https://github.com/OpenMW/openmw/archive/%{name}-%{version}.tar.xz
 Source1:	%{name}.rpmlintrc
 BuildRequires:	cmake
 BuildRequires:	ogre
@@ -35,7 +35,7 @@ implementation of the game's engine and functionality.
 You will still need the original game data to play OpenMW.
 
 %prep
-%setup -qn %{name}-%{name}-%{version}
+%setup -qn %{name}-%{version}
 %apply_patches
 
 # Remove bundled tinyxml files
@@ -64,6 +64,7 @@ sed -e 's/"tinyxml.h"/<tinyxml.h>/g' \
 %files
 %{_sysconfdir}/%{name}/
 %{_bindir}/%{name}
+%{_bindir}/niftest
 %{_bindir}/openmw-cs
 %{_bindir}/openmw-launcher
 %{_bindir}/openmw-essimporter
