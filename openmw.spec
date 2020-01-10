@@ -37,7 +37,7 @@ You will still need the original game data to play OpenMW.
 
 %prep
 %setup -qn %{name}-%{name}-%{version}
-%apply_patches
+%autopatch -p1
 
 # Remove bundled tinyxml files
 rm -f extern/oics/tiny*.
