@@ -75,7 +75,6 @@ sed -e 's/"tinyxml.h"/<tinyxml.h>/g' \
 %{_bindir}/bsatool
 %{_datadir}/metainfo/openmw.appdata.xml
 %{_gamesdatadir}/%{name}/
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/applications/openmw-cs.desktop
+%{_datadir}/applications/*.desktop
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/pixmaps/openmw-cs.png
