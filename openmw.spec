@@ -1,12 +1,13 @@
 Summary:	A reimplementation of The Elder Scrolls III: Morrowind
 Name:		openmw
-Version:	0.45.0
-Release:	3
+Version:	0.46.0
+Release:	1
 Group:		Games/Adventure
 License:	GPLv3+
 Url:		https://openmw.org
 Source0:	https://github.com/OpenMW/openmw/archive/%{name}-%{version}.tar.gz
 Source1:	%{name}.rpmlintrc
+Patch0:		fix_include.patch
 BuildRequires:	cmake
 BuildRequires:	ogre
 BuildRequires:	boost-devel
@@ -57,10 +58,10 @@ sed -e 's/"tinyxml.h"/<tinyxml.h>/g' \
 	-DDESIRED_QT_VERSION=5 \
 	-DMORROWIND_DATA_FILES=%{_datadir}/games/morrowind
 
-%make
+%make_build
 
 %install
-%makeinstall_std -C build
+%make_install -C build
 
 %files
 %{_sysconfdir}/%{name}/
