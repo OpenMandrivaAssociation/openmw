@@ -65,14 +65,7 @@ sed -e 's/"tinyxml.h"/<tinyxml.h>/g' \
 
 %files
 %{_sysconfdir}/%{name}/
-%{_bindir}/%{name}
-%{_bindir}/openmw-cs
-%{_bindir}/openmw-launcher
-%{_bindir}/openmw-essimporter
-%{_bindir}/openmw-wizard
-%{_bindir}/esmtool
-%{_bindir}/openmw-iniimporter
-%{_bindir}/bsatool
+%{_bindir}/*
 %{_datadir}/metainfo/openmw.appdata.xml
 %{_gamesdatadir}/%{name}/
 %{_datadir}/applications/*.desktop
