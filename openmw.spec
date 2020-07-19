@@ -15,6 +15,7 @@ BuildRequires:	ffmpeg-devel
 BuildRequires:	qt5-devel
 BuildRequires:	pkgconfig(bullet)
 BuildRequires:	pkgconfig(openscenegraph)
+BuildRequires:	pkgconfig(openscenegraph-osg)
 BuildRequires:	pkgconfig(libmpg123)
 BuildRequires:	pkgconfig(libunshield)
 BuildRequires:	pkgconfig(MYGUI)
