@@ -16,6 +16,7 @@ BuildRequires:	qt5-devel
 BuildRequires:	pkgconfig(bullet)
 BuildRequires:	pkgconfig(openscenegraph)
 BuildRequires:	pkgconfig(openscenegraph-osg)
+BuildRequires:	pkgconfig(liblz4)
 BuildRequires:	pkgconfig(libmpg123)
 BuildRequires:	pkgconfig(libunshield)
 BuildRequires:	pkgconfig(MYGUI)
