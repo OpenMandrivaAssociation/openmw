@@ -7,7 +7,7 @@ License:	GPLv3+
 Url:		https://openmw.org
 Source0:	https://github.com/OpenMW/openmw/archive/%{version}/%{name}-%{name}-%{version}.tar.gz
 Source1:	%{name}.rpmlintrc
-Patch0:		fix_include.patch
+#Patch0:		fix_include.patch
 BuildRequires:	cmake
 BuildRequires:	ogre
 BuildRequires:	boost-devel
