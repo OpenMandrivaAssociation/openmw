@@ -57,6 +57,7 @@ sed -e 's/"tinyxml.h"/<tinyxml.h>/g' \
 %build
 %cmake  -DOGRE_PLUGIN_DIR=%{_libdir}/OGRE \
 	-DUSE_SYSTEM_TINYXML=ON \
+	-DOPENMW_USE_SYSTEM_BULLET=OFF \
 	-DBUILD_UNITTESTS=OFF \
 	-DDESIRED_QT_VERSION=5 \
 	-DMORROWIND_DATA_FILES=%{_datadir}/games/morrowind
