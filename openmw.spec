@@ -1,13 +1,14 @@
 Summary:	A reimplementation of The Elder Scrolls III: Morrowind
 Name:		openmw
-Version:	0.46.0
-Release:	2
+Version:	0.47.0
+Release:	1
 Group:		Games/Adventure
 License:	GPLv3+
 Url:		https://openmw.org
-Source0:	https://github.com/OpenMW/openmw/archive/%{name}-%{version}.tar.gz
+Source0:	https://github.com/OpenMW/openmw/archive/%{version}/%{name}-%{name}-%{version}.tar.gz
 Source1:	%{name}.rpmlintrc
-Patch0:		fix_include.patch
+#Patch0:		fix_include.patch
+Patch1:		openmw-sigaltstack.patch
 BuildRequires:	cmake
 BuildRequires:	ogre
 BuildRequires:	boost-devel
@@ -16,6 +17,7 @@ BuildRequires:	qt5-devel
 BuildRequires:	pkgconfig(bullet)
 BuildRequires:	pkgconfig(openscenegraph)
 BuildRequires:	pkgconfig(openscenegraph-osg)
+BuildRequires:	pkgconfig(liblz4)
 BuildRequires:	pkgconfig(libmpg123)
 BuildRequires:	pkgconfig(libunshield)
 BuildRequires:	pkgconfig(MYGUI)
@@ -55,6 +57,7 @@ sed -e 's/"tinyxml.h"/<tinyxml.h>/g' \
 %build
 %cmake  -DOGRE_PLUGIN_DIR=%{_libdir}/OGRE \
 	-DUSE_SYSTEM_TINYXML=ON \
+	-DOPENMW_USE_SYSTEM_BULLET=OFF \
 	-DBUILD_UNITTESTS=OFF \
 	-DDESIRED_QT_VERSION=5 \
 	-DMORROWIND_DATA_FILES=%{_datadir}/games/morrowind
