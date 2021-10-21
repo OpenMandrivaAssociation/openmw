@@ -53,6 +53,9 @@ sed -e 's/"tinyxml.h"/<tinyxml.h>/g' \
 	-i extern/oics/ICSPrerequisites.h
 
 
+# Use bundled version of bullet (use_system_bulett=off), because OpenMW 0.46/0.47 require bullet compiled with double precision
+# while OMV version was compiled as single precision. Double cause huge performance hit for all stuff that use bullet.
+# That's why we use here bundled version of bullet with double precision to avoid droping performance for system bullet and rest app that depend on it.
 
 %build
 %cmake  -DOGRE_PLUGIN_DIR=%{_libdir}/OGRE \
