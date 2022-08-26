@@ -9,6 +9,7 @@ Source0:	https://github.com/OpenMW/openmw/archive/%{version}/%{name}-%{name}-%{v
 Source1:	%{name}.rpmlintrc
 #Patch0:		fix_include.patch
 Patch1:		openmw-sigaltstack.patch
+Patch2:		openmw-0.47.0-gcc12.patch
 BuildRequires:	cmake
 BuildRequires:	ogre
 BuildRequires:	boost-devel
