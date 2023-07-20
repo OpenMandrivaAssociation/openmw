@@ -1,7 +1,7 @@
 Summary:	A reimplementation of The Elder Scrolls III: Morrowind
 Name:		openmw
 Version:	0.47.0
-Release:	5
+Release:	6
 Group:		Games/Adventure
 License:	GPLv3+
 Url:		https://openmw.org
@@ -10,6 +10,7 @@ Source1:	%{name}.rpmlintrc
 #Patch0:		fix_include.patch
 Patch1:		openmw-sigaltstack.patch
 Patch2:		openmw-0.47.0-gcc12.patch
+Patch3:		openmw-0.47.0-compile.patch
 BuildRequires:	cmake
 BuildRequires:	ogre
 BuildRequires:	boost-devel
@@ -52,6 +53,8 @@ sed -e '/LICDIR/d' -i CMakeLists.txt
 sed -e 's/"tinyxml.h"/<tinyxml.h>/g' \
 	-e 's/"tinystr.h"/<tinystr.h>/g' \
 	-i extern/oics/ICSPrerequisites.h
+
+find . -name "*.hpp" -o -name "*.h" -o -name "*.cpp" -o -name "*.c" |xargs sed -i -e '/include.*MyGUI/i#include <cstdint>'
 
 
 # Use bundled version of bullet (use_system_bulett=off), because OpenMW 0.46/0.47 require bullet compiled with double precision
