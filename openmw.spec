@@ -65,6 +65,8 @@ find . -name "*.hpp" -o -name "*.h" -o -name "*.cpp" -o -name "*.c" |xargs sed -
 # That's why we use here bundled version of bullet with double precision to avoid droping performance for system bullet and rest app that depend on it.
 
 %build
+export CC=gcc
+export CXX=g++
 %cmake  -DOGRE_PLUGIN_DIR=%{_libdir}/OGRE \
 	-DUSE_SYSTEM_TINYXML=ON \
 	-DOPENMW_USE_SYSTEM_BULLET=OFF \
