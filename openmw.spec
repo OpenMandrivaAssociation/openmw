@@ -30,6 +30,7 @@ BuildRequires:	pkgconfig(sdl2)
 BuildRequires:	pkgconfig(sndfile)
 BuildRequires:	pkgconfig(uuid)
 BuildRequires:	pkgconfig(xt)
+BuildRequires:	pkgconfig(yaml-cpp)
 BuildRequires:	tinyxml-devel
 Requires:	ogre
 Requires:	openscenegraph-plugins
