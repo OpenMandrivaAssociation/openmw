@@ -65,6 +65,7 @@ find . -name "*.hpp" -o -name "*.h" -o -name "*.cpp" -o -name "*.c" |xargs sed -
 # That's why we use here bundled version of bullet with double precision to avoid droping performance for system bullet and rest app that depend on it.
 
 %build
+# As of OpenMW 0.48 crashing Clang at compilation time.
 export CC=gcc
 export CXX=g++
 %cmake  -DOGRE_PLUGIN_DIR=%{_libdir}/OGRE \
