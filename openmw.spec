@@ -1,16 +1,16 @@
 Summary:	A reimplementation of The Elder Scrolls III: Morrowind
 Name:		openmw
-Version:	0.47.0
-Release:	6
+Version:	0.48.0
+Release:	1
 Group:		Games/Adventure
 License:	GPLv3+
 Url:		https://openmw.org
 Source0:	https://github.com/OpenMW/openmw/archive/%{version}/%{name}-%{name}-%{version}.tar.gz
 Source1:	%{name}.rpmlintrc
 #Patch0:		fix_include.patch
-Patch1:		openmw-sigaltstack.patch
-Patch2:		openmw-0.47.0-gcc12.patch
-Patch3:		openmw-0.47.0-compile.patch
+#Patch1:		openmw-sigaltstack.patch
+#Patch2:		openmw-0.47.0-gcc12.patch
+#Patch3:		openmw-0.47.0-compile.patch
 BuildRequires:	cmake
 BuildRequires:	ogre
 BuildRequires:	boost-devel
@@ -22,14 +22,17 @@ BuildRequires:	pkgconfig(openscenegraph-osg)
 BuildRequires:	pkgconfig(liblz4)
 BuildRequires:	pkgconfig(libmpg123)
 BuildRequires:	pkgconfig(libunshield)
+BuildRequires:	pkgconfig(luajit)
 BuildRequires:	pkgconfig(MYGUI)
 BuildRequires:	pkgconfig(OGRE)
 BuildRequires:	pkgconfig(OIS)
 BuildRequires:	pkgconfig(openal)
 BuildRequires:	pkgconfig(sdl2)
 BuildRequires:	pkgconfig(sndfile)
+BuildRequires:	pkgconfig(sqlite3)
 BuildRequires:	pkgconfig(uuid)
 BuildRequires:	pkgconfig(xt)
+BuildRequires:	pkgconfig(yaml-cpp)
 BuildRequires:	tinyxml-devel
 Requires:	ogre
 Requires:	openscenegraph-plugins
@@ -62,6 +65,9 @@ find . -name "*.hpp" -o -name "*.h" -o -name "*.cpp" -o -name "*.c" |xargs sed -
 # That's why we use here bundled version of bullet with double precision to avoid droping performance for system bullet and rest app that depend on it.
 
 %build
+# As of OpenMW 0.48 crashing Clang at compilation time.
+export CC=gcc
+export CXX=g++
 %cmake  -DOGRE_PLUGIN_DIR=%{_libdir}/OGRE \
 	-DUSE_SYSTEM_TINYXML=ON \
 	-DOPENMW_USE_SYSTEM_BULLET=OFF \
