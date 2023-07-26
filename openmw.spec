@@ -1,7 +1,7 @@
 Summary:	A reimplementation of The Elder Scrolls III: Morrowind
 Name:		openmw
 Version:	0.48.0
-Release:	1
+Release:	2
 Group:		Games/Adventure
 License:	GPLv3+
 Url:		https://openmw.org
@@ -15,7 +15,12 @@ BuildRequires:	cmake
 BuildRequires:	ogre
 BuildRequires:	boost-devel
 BuildRequires:	ffmpeg-devel
-BuildRequires:	qt5-devel
+BuildRequires:  cmake(Qt6)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:	cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6OpenGL)
+BuildRequires:  cmake(Qt6OpenGLWidgets)
 BuildRequires:	pkgconfig(bullet)
 BuildRequires:	pkgconfig(openscenegraph)
 BuildRequires:	pkgconfig(openscenegraph-osg)
@@ -72,7 +77,7 @@ export CXX=g++
 	-DUSE_SYSTEM_TINYXML=ON \
 	-DOPENMW_USE_SYSTEM_BULLET=OFF \
 	-DBUILD_UNITTESTS=OFF \
-	-DDESIRED_QT_VERSION=5 \
+	-DDESIRED_QT_VERSION=6 \
 	-DMORROWIND_DATA_FILES=%{_datadir}/games/morrowind
 
 %make_build
