@@ -15,12 +15,16 @@ BuildRequires:	cmake
 BuildRequires:	ogre
 BuildRequires:	boost-devel
 BuildRequires:	ffmpeg-devel
+%if 1
+BuildRequires:	qt5-devel
+%else
 BuildRequires:  cmake(Qt6)
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6Network)
 BuildRequires:	cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6OpenGL)
 BuildRequires:  cmake(Qt6OpenGLWidgets)
+%endif
 BuildRequires:	pkgconfig(bullet)
 BuildRequires:	pkgconfig(openscenegraph)
 BuildRequires:	pkgconfig(openscenegraph-osg)
@@ -50,8 +54,7 @@ implementation of the game's engine and functionality.
 You will still need the original game data to play OpenMW.
 
 %prep
-%setup -qn %{name}-%{name}-%{version}
-%autopatch -p1
+%autosetup -p1 -n %{name}-%{name}-%{version}
 
 # Remove bundled tinyxml files
 rm -f extern/oics/tiny*.
