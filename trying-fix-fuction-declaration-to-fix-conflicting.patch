@@ -1,0 +1,12 @@
+diff -uraN openmw-openmw-0.48.0/components/myguiplatform/myguidatamanager.hpp omv-openmw-openmw-0.48.0/components/myguiplatform/myguidatamanager.hpp
+--- openmw-openmw-0.48.0/components/myguiplatform/myguidatamanager.hpp	2023-08-08 11:23:20.000000000 +0200
++++ omv-openmw-openmw-0.48.0/components/myguiplatform/myguidatamanager.hpp	2023-08-30 14:34:59.994807434 +0200
+@@ -44,7 +44,7 @@
+         @param _name Resource name.
+         @return Return full path to specified data.
+     */
+-    const std::string& getDataPath(const std::string& _name) const override;
++    virtual std::string getDataPath(const std::string& _name) const override;
+ 
+ private:
+     std::string mResourcePath;
