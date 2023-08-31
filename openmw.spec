@@ -7,10 +7,7 @@ License:	GPLv3+
 Url:		https://openmw.org
 Source0:	https://github.com/OpenMW/openmw/archive/%{version}/%{name}-%{name}-%{version}.tar.gz
 Source1:	%{name}.rpmlintrc
-#Patch0:		fix_include.patch
-#Patch1:		openmw-sigaltstack.patch
-#Patch2:		openmw-0.47.0-gcc12.patch
-#Patch3:		openmw-0.47.0-compile.patch
+Patch0:		https://gitlab.com/OpenMW/openmw/-/merge_requests/3319.patch
 BuildRequires:	cmake
 BuildRequires:	ogre
 BuildRequires:	boost-devel
