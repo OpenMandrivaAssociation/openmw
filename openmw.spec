@@ -1,11 +1,13 @@
+%define git 20231010
 Summary:	A reimplementation of The Elder Scrolls III: Morrowind
 Name:		openmw
-Version:	0.48.0
-Release:	5
+Version:	0.49.0
+Release:	0.git.0
 Group:		Games/Adventure
 License:	GPLv3+
 Url:		https://openmw.org
-Source0:	https://github.com/OpenMW/openmw/archive/%{version}/%{name}-%{name}-%{version}.tar.gz
+Source0:	https://github.com/OpenMW/openmw/archive/refs/heads/master.tar.gz
+#Source0:	https://github.com/OpenMW/openmw/archive/%{version}/%{name}-%{name}-%{version}.tar.gz
 Source1:	%{name}.rpmlintrc
 #Patch0:		fix_include.patch
 #Patch1:		openmw-sigaltstack.patch
@@ -54,7 +56,7 @@ implementation of the game's engine and functionality.
 You will still need the original game data to play OpenMW.
 
 %prep
-%autosetup -p1 -n %{name}-%{name}-%{version}
+%autosetup -p1 -n %{name}-master
 
 # Remove bundled tinyxml files
 rm -f extern/oics/tiny*.
