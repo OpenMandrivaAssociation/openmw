@@ -6,7 +6,7 @@ Release:	0.git.0
 Group:		Games/Adventure
 License:	GPLv3+
 Url:		https://openmw.org
-Source0:	https://github.com/OpenMW/openmw/archive/refs/heads/master.tar.gz
+Source0:	https://github.com/OpenMW/openmw/archive/refs/heads/openmw-master.tar.gz
 #Source0:	https://github.com/OpenMW/openmw/archive/%{version}/%{name}-%{name}-%{version}.tar.gz
 Source1:	%{name}.rpmlintrc
 #Patch0:		fix_include.patch
