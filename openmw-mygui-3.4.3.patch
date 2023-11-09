@@ -1,0 +1,544 @@
+diff -up openmw-openmw-0.48.0/apps/openmw/mwgui/cursor.cpp.omv~ openmw-openmw-0.48.0/apps/openmw/mwgui/cursor.cpp
+--- openmw-openmw-0.48.0/apps/openmw/mwgui/cursor.cpp.omv~	2023-11-09 19:53:58.342375911 +0100
++++ openmw-openmw-0.48.0/apps/openmw/mwgui/cursor.cpp	2023-11-09 19:54:06.758454363 +0100
+@@ -30,8 +30,8 @@ namespace MWGui
+         MyGUI::xml::ElementEnumerator info = _node->getElementEnumerator();
+         while (info.next("Property"))
+         {
+-            const std::string& key = info->findAttribute("key");
+-            const std::string& value = info->findAttribute("value");
++            auto key = info->findAttribute("key");
++            auto value = info->findAttribute("value");
+ 
+             if (key == "Point")
+                 mPoint = MyGUI::IntPoint::parse(value);
+diff -up openmw-openmw-0.48.0/apps/openmw/mwgui/quickkeysmenu.cpp.omv~ openmw-openmw-0.48.0/apps/openmw/mwgui/quickkeysmenu.cpp
+--- openmw-openmw-0.48.0/apps/openmw/mwgui/quickkeysmenu.cpp.omv~	2023-11-09 19:32:46.530094056 +0100
++++ openmw-openmw-0.48.0/apps/openmw/mwgui/quickkeysmenu.cpp	2023-11-09 19:32:51.417144838 +0100
+@@ -539,7 +539,7 @@ namespace MWGui
+                     break;
+                 }
+                 case Type_Magic:
+-                    std::string spellId = button->getUserString("Spell");
++                    auto spellId = button->getUserString("Spell");
+                     key.mId = spellId;
+                     break;
+             }
+diff -up openmw-openmw-0.48.0/apps/openmw/mwgui/resourceskin.cpp.omv~ openmw-openmw-0.48.0/apps/openmw/mwgui/resourceskin.cpp
+--- openmw-openmw-0.48.0/apps/openmw/mwgui/resourceskin.cpp.omv~	2023-11-09 19:22:32.203543572 +0100
++++ openmw-openmw-0.48.0/apps/openmw/mwgui/resourceskin.cpp	2023-11-09 19:24:14.160445392 +0100
+@@ -10,15 +10,15 @@ namespace MWGui
+     void resizeSkin(MyGUI::xml::ElementPtr _node)
+     {
+         _node->setAttribute("type", "ResourceSkin");
+-        const std::string size = _node->findAttribute("size");
++        const auto size = _node->findAttribute("size");
+         if (!size.empty())
+             return;
+ 
+-        const std::string textureName = _node->findAttribute("texture");
++        const auto textureName = _node->findAttribute("texture");
+         if (textureName.empty())
+             return;
+ 
+-        MyGUI::ITexture* texture = MyGUI::RenderManager::getInstance().getTexture(textureName);
++        MyGUI::ITexture* texture = MyGUI::RenderManager::getInstance().getTexture(std::string(textureName));
+         if (!texture)
+             return;
+ 
+@@ -31,11 +31,11 @@ namespace MWGui
+             if (basis->getName() != "BasisSkin")
+                 continue;
+ 
+-            const std::string basisSkinType = basis->findAttribute("type");
++            const auto basisSkinType = basis->findAttribute("type");
+             if (Misc::StringUtils::ciEqual(basisSkinType, "SimpleText"))
+                 continue;
+ 
+-            const std::string offset = basis->findAttribute("offset");
++            const auto offset = basis->findAttribute("offset");
+             if (!offset.empty())
+                 continue;
+ 
+@@ -46,7 +46,7 @@ namespace MWGui
+             {
+                 if (state->getName() == "State")
+                 {
+-                    const std::string stateOffset = state->findAttribute("offset");
++                    const auto stateOffset = state->findAttribute("offset");
+                     if (!stateOffset.empty())
+                         continue;
+ 
+@@ -57,7 +57,7 @@ namespace MWGui
+                         bool hasTileSize = false;
+                         while (property.next("Property"))
+                         {
+-                            const std::string key = property->findAttribute("key");
++                            const auto key = property->findAttribute("key");
+                             if (key != "TileSize")
+                                 continue;
+ 
+diff -up openmw-openmw-0.48.0/apps/openmw/mwgui/settingswindow.cpp.omv~ openmw-openmw-0.48.0/apps/openmw/mwgui/settingswindow.cpp
+--- openmw-openmw-0.48.0/apps/openmw/mwgui/settingswindow.cpp.omv~	2023-11-09 19:27:31.992683308 +0100
++++ openmw-openmw-0.48.0/apps/openmw/mwgui/settingswindow.cpp	2023-11-09 19:31:36.130356187 +0100
+@@ -112,22 +112,22 @@ namespace
+     const char* checkButtonType = "CheckButton";
+     const char* sliderType = "Slider";
+ 
+-    std::string getSettingType(MyGUI::Widget* widget)
++    auto getSettingType(MyGUI::Widget* widget)
+     {
+         return widget->getUserString("SettingType");
+     }
+ 
+-    std::string getSettingName(MyGUI::Widget* widget)
++    auto getSettingName(MyGUI::Widget* widget)
+     {
+         return widget->getUserString("SettingName");
+     }
+ 
+-    std::string getSettingCategory(MyGUI::Widget* widget)
++    auto getSettingCategory(MyGUI::Widget* widget)
+     {
+         return widget->getUserString("SettingCategory");
+     }
+ 
+-    std::string getSettingValueType(MyGUI::Widget* widget)
++    auto getSettingValueType(MyGUI::Widget* widget)
+     {
+         return widget->getUserString("SettingValueType");
+     }
+@@ -167,7 +167,7 @@ namespace MWGui
+         {
+             MyGUI::Widget* current = widgets.current();
+ 
+-            std::string type = getSettingType(current);
++            auto type = getSettingType(current);
+             if (type == checkButtonType)
+             {
+                 std::string initialValue = Settings::Manager::getBool(getSettingName(current),
+@@ -181,7 +181,7 @@ namespace MWGui
+             {
+                 MyGUI::ScrollBar* scroll = current->castType<MyGUI::ScrollBar>();
+                 std::string valueStr;
+-                std::string valueType = getSettingValueType(current);
++                auto valueType = getSettingValueType(current);
+                 if (valueType == "Float" || valueType == "Integer" || valueType == "Cell")
+                 {
+                     // TODO: ScrollBar isn't meant for this. should probably use a dedicated FloatSlider widget
+@@ -227,12 +227,12 @@ namespace MWGui
+ 
+     void SettingsWindow::updateSliderLabel(MyGUI::ScrollBar *scroller, const std::string& value)
+     {
+-        std::string labelWidgetName = scroller->getUserString("SettingLabelWidget");
++        auto labelWidgetName = scroller->getUserString("SettingLabelWidget");
+         if (!labelWidgetName.empty())
+         {
+             MyGUI::TextBox* textBox;
+             getWidget(textBox, labelWidgetName);
+-            std::string labelCaption = scroller->getUserString("SettingLabelCaption");
++	    std::string labelCaption = std::string(scroller->getUserString("SettingLabelCaption"));
+             labelCaption = Misc::StringUtils::format(labelCaption, value);
+             textBox->setCaptionWithReplacing(labelCaption);
+         }
+@@ -628,7 +628,7 @@ namespace MWGui
+         if (getSettingType(scroller) == "Slider")
+         {
+             std::string valueStr;
+-            std::string valueType = getSettingValueType(scroller);
++            auto valueType = getSettingValueType(scroller);
+             if (valueType == "Float" || valueType == "Integer" || valueType == "Cell")
+             {
+                 float value = pos / float(scroller->getScrollRange()-1);
+diff -up openmw-openmw-0.48.0/apps/openmw/mwgui/tooltips.cpp.omv~ openmw-openmw-0.48.0/apps/openmw/mwgui/tooltips.cpp
+--- openmw-openmw-0.48.0/apps/openmw/mwgui/tooltips.cpp.omv~	2023-11-09 19:11:17.015576209 +0100
++++ openmw-openmw-0.48.0/apps/openmw/mwgui/tooltips.cpp	2023-11-09 19:21:56.881231170 +0100
+@@ -172,7 +172,7 @@ namespace MWGui
+                         return;
+                 }
+ 
+-                std::string type = focus->getUserString("ToolTipType");
++                auto type = focus->getUserString("ToolTipType");
+ 
+                 if (type == "")
+                 {
+@@ -228,7 +228,7 @@ namespace MWGui
+                     ToolTipInfo info;
+ 
+                     const ESM::Spell *spell =
+-                        MWBase::Environment::get().getWorld()->getStore().get<ESM::Spell>().find(focus->getUserString("Spell"));
++                        MWBase::Environment::get().getWorld()->getStore().get<ESM::Spell>().find(std::string(focus->getUserString("Spell")));
+                     info.caption = spell->mName;
+                     Widgets::SpellEffectList effects;
+                     for (const ESM::ENAMstruct& spellEffect : spell->mEffects.mList)
+@@ -252,7 +252,7 @@ namespace MWGui
+                         int school = MWMechanics::getSpellSchool(spell, player);
+                         info.text = "#{sSchool}: " + sSchoolNames[school];
+                     }
+-                    std::string cost = focus->getUserString("SpellCost");
++                    auto cost = focus->getUserString("SpellCost");
+                     if (cost != "" && cost != "0")
+                         info.text += MWGui::ToolTips::getValueString(MWMechanics::calcSpellCost(*spell), "#{sCastCost}");
+                     info.effects = effects;
+@@ -266,7 +266,7 @@ namespace MWGui
+ 
+                     tooltip->setVisible(true);
+ 
+-                    std::map<std::string, std::string> userStrings = focus->getUserStrings();
++                    auto userStrings = focus->getUserStrings();
+                     for (auto& userStringPair : userStrings)
+                     {
+                         size_t underscorePos = userStringPair.first.find('_');
+diff -up openmw-openmw-0.48.0/apps/openmw/mwgui/travelwindow.cpp.omv~ openmw-openmw-0.48.0/apps/openmw/mwgui/travelwindow.cpp
+--- openmw-openmw-0.48.0/apps/openmw/mwgui/travelwindow.cpp.omv~	2023-11-09 19:42:38.026961356 +0100
++++ openmw-openmw-0.48.0/apps/openmw/mwgui/travelwindow.cpp	2023-11-09 19:49:50.596059395 +0100
+@@ -147,7 +147,7 @@ namespace MWGui
+ 
+     void TravelWindow::onTravelButtonClick(MyGUI::Widget* _sender)
+     {
+-        std::istringstream iss(_sender->getUserString("price"));
++        std::istringstream iss(std::string(_sender->getUserString("price")));
+         int price;
+         iss >> price;
+ 
+@@ -173,7 +173,7 @@ namespace MWGui
+ 
+         MWBase::Environment::get().getWindowManager()->fadeScreenOut(1);
+         ESM::Position pos = *_sender->getUserData<ESM::Position>();
+-        std::string cellname = _sender->getUserString("Destination");
++        auto cellname = _sender->getUserString("Destination");
+         bool interior = _sender->getUserString("interior") == "y";
+         if (mPtr.getCell()->isExterior())
+         {
+@@ -190,7 +190,7 @@ namespace MWGui
+         MWBase::Environment::get().getWindowManager()->fadeScreenOut(1);
+ 
+         // Teleports any followers, too.
+-        MWWorld::ActionTeleport action(interior ? cellname : "", pos, true);
++        MWWorld::ActionTeleport action(std::string(interior ? cellname : ""), pos, true);
+         action.execute(player);
+ 
+         MWBase::Environment::get().getWindowManager()->fadeScreenOut(0);
+diff -up openmw-openmw-0.48.0/apps/openmw/mwgui/windowmanagerimp.cpp.omv~ openmw-openmw-0.48.0/apps/openmw/mwgui/windowmanagerimp.cpp
+--- openmw-openmw-0.48.0/apps/openmw/mwgui/windowmanagerimp.cpp.omv~	2023-11-09 19:02:31.037941653 +0100
++++ openmw-openmw-0.48.0/apps/openmw/mwgui/windowmanagerimp.cpp	2023-11-09 19:06:16.877928996 +0100
+@@ -2155,9 +2155,9 @@ namespace MWGui
+             ResourceImageSetPointerFix* imgSetPointer = resource->castType<ResourceImageSetPointerFix>(false);
+             if (!imgSetPointer)
+                 continue;
+-            std::string tex_name = imgSetPointer->getImageSet()->getIndexInfo(0,0).texture;
++            auto tex_name = imgSetPointer->getImageSet()->getIndexInfo(0,0).texture;
+ 
+-            osg::ref_ptr<osg::Image> image = mResourceSystem->getImageManager()->getImage(tex_name);
++            osg::ref_ptr<osg::Image> image = mResourceSystem->getImageManager()->getImage(std::string(tex_name));
+ 
+             if(image.valid())
+             {
+diff -up openmw-openmw-0.48.0/components/fontloader/fontloader.cpp.omv~ openmw-openmw-0.48.0/components/fontloader/fontloader.cpp
+--- openmw-openmw-0.48.0/components/fontloader/fontloader.cpp.omv~	2023-11-09 18:47:25.524028805 +0100
++++ openmw-openmw-0.48.0/components/fontloader/fontloader.cpp	2023-11-09 18:49:43.142243501 +0100
+@@ -43,7 +43,7 @@ namespace
+         MyGUI::xml::ElementEnumerator propertyIterator = resourceNode->getElementEnumerator();
+         while (propertyIterator.next("Property"))
+         {
+-            std::string key = propertyIterator->findAttribute("key");
++            auto key = propertyIterator->findAttribute("key");
+ 
+             if (key == propertyName)
+             {
+@@ -63,12 +63,12 @@ namespace
+         MyGUI::xml::ElementEnumerator layersIterator = root->getElementEnumerator();
+         while (layersIterator.next("Layer"))
+         {
+-            std::string name = layersIterator->findAttribute("name");
++            auto name = layersIterator->findAttribute("name");
+ 
+             if (name == "JournalBooks")
+             {
+                 MyGUI::xml::ElementPtr sizeProperty = getProperty(layersIterator.current(), "Size");
+-                const std::string& sizeValue = sizeProperty != nullptr ? sizeProperty->findAttribute("value") : std::string();
++                auto sizeValue = sizeProperty != nullptr ? sizeProperty->findAttribute("value") : std::string();
+                 if (!sizeValue.empty())
+                     return MyGUI::IntSize::parse(sizeValue);
+             }
+@@ -269,7 +269,7 @@ namespace Gui
+         bool valid = false;
+         if (resourceNode.next("Resource"))
+         {
+-            std::string type = resourceNode->findAttribute("type");
++            auto type = resourceNode->findAttribute("type");
+             valid = (type == "ResourceTrueTypeFont");
+         }
+ 
+@@ -577,7 +577,7 @@ namespace Gui
+         MyGUI::xml::ElementEnumerator resourceNode = _node->getElementEnumerator();
+         while (resourceNode.next("Resource"))
+         {
+-            std::string type = resourceNode->findAttribute("type");
++            auto type = resourceNode->findAttribute("type");
+ 
+             if (Misc::StringUtils::ciEqual(type, "ResourceSkin") ||
+                      Misc::StringUtils::ciEqual(type, "AutoSizedResourceSkin"))
+diff -up openmw-openmw-0.48.0/components/myguiplatform/myguidatamanager.cpp.omv~ openmw-openmw-0.48.0/components/myguiplatform/myguidatamanager.cpp
+--- openmw-openmw-0.48.0/components/myguiplatform/myguidatamanager.cpp.omv~	2023-11-09 18:20:37.016462058 +0100
++++ openmw-openmw-0.48.0/components/myguiplatform/myguidatamanager.cpp	2023-11-09 18:20:52.173574707 +0100
+@@ -58,7 +58,7 @@ const MyGUI::VectorString &DataManager::
+     throw std::runtime_error("DataManager::getDataListNames is not implemented - VFS is used");
+ }
+ 
+-const std::string &DataManager::getDataPath(const std::string &name) const
++std::string DataManager::getDataPath(const std::string &name) const
+ {
+     static std::string result;
+     result.clear();
+diff -up openmw-openmw-0.48.0/components/myguiplatform/myguidatamanager.hpp.omv~ openmw-openmw-0.48.0/components/myguiplatform/myguidatamanager.hpp
+--- openmw-openmw-0.48.0/components/myguiplatform/myguidatamanager.hpp.omv~	2023-11-09 18:20:20.650341171 +0100
++++ openmw-openmw-0.48.0/components/myguiplatform/myguidatamanager.hpp	2023-11-09 18:20:35.019447266 +0100
+@@ -45,7 +45,7 @@ public:
+         @param _name Resource name.
+         @return Return full path to specified data.
+     */
+-    const std::string& getDataPath(const std::string& _name) const override;
++    std::string getDataPath(const std::string& _name) const override;
+ 
+ private:
+     std::string mResourcePath;
+diff -up openmw-openmw-0.48.0/components/widgets/box.hpp.omv~ openmw-openmw-0.48.0/components/widgets/box.hpp
+--- openmw-openmw-0.48.0/components/widgets/box.hpp.omv~	2023-11-09 18:21:55.495052054 +0100
++++ openmw-openmw-0.48.0/components/widgets/box.hpp	2023-11-09 18:39:22.950793386 +0100
+@@ -21,7 +21,7 @@ namespace Gui
+         MYGUI_RTTI_DERIVED( ComboBox )
+ 
+     protected:
+-        void setPropertyOverride(const std::string& _key, const std::string& _value) override;
++        void setPropertyOverride(std::string_view _key, const std::string_view _value) override;
+     };
+ 
+     class Button : public FontWrapper<MyGUI::Button>
+@@ -63,7 +63,7 @@ namespace Gui
+         void setCaption(const MyGUI::UString& _value) override;
+ 
+     protected:
+-        void setPropertyOverride(const std::string& _key, const std::string& _value) override;
++        void setPropertyOverride(std::string_view _key, const std::string_view _value) override;
+         std::string mFontSize;
+     };
+ 
+@@ -79,7 +79,7 @@ namespace Gui
+         void initialiseOverride() override;
+ 
+     protected:
+-        void setPropertyOverride(const std::string& _key, const std::string& _value) override;
++        void setPropertyOverride(std::string_view _key, const std::string_view _value) override;
+         int getWidth();
+         std::string mFontSize;
+         bool mShrink = false;
+@@ -96,7 +96,7 @@ namespace Gui
+         void setCaption(const MyGUI::UString& _value) override;
+ 
+     protected:
+-        void setPropertyOverride(const std::string& _key, const std::string& _value) override;
++        void setPropertyOverride(std::string_view _key, const std::string_view _value) override;
+         std::string mFontSize;
+     };
+ 
+@@ -116,7 +116,7 @@ namespace Gui
+     protected:
+         virtual void align() = 0;
+ 
+-        virtual bool _setPropertyImpl(const std::string& _key, const std::string& _value);
++        virtual bool _setPropertyImpl(std::string_view _key, const std::string_view _value);
+ 
+         int mSpacing; // how much space to put between elements
+ 
+@@ -148,7 +148,7 @@ namespace Gui
+         void align() override;
+         MyGUI::IntSize getRequestedSize() override;
+ 
+-        void setPropertyOverride(const std::string& _key, const std::string& _value) override;
++        void setPropertyOverride(std::string_view _key, const std::string_view _value) override;
+ 
+         void onWidgetCreated(MyGUI::Widget* _widget) override;
+     };
+@@ -167,7 +167,7 @@ namespace Gui
+         void align() override;
+         MyGUI::IntSize getRequestedSize() override;
+ 
+-        void setPropertyOverride(const std::string& _key, const std::string& _value) override;
++        void setPropertyOverride(std::string_view _key, std::string_view _value) override;
+ 
+         void onWidgetCreated(MyGUI::Widget* _widget) override;
+     };
+diff -up openmw-openmw-0.48.0/components/widgets/fontwrapper.hpp.omv~ openmw-openmw-0.48.0/components/widgets/fontwrapper.hpp
+--- openmw-openmw-0.48.0/components/widgets/fontwrapper.hpp.omv~	2023-11-09 18:23:40.491864855 +0100
++++ openmw-openmw-0.48.0/components/widgets/fontwrapper.hpp	2023-11-09 18:24:38.520323878 +0100
+@@ -11,14 +11,14 @@ namespace Gui
+     class FontWrapper : public T
+     {
+     public:
+-        void setFontName(const std::string& name) override
++        void setFontName(std::string_view name) override
+         {
+             T::setFontName(name);
+             T::setPropertyOverride ("FontHeight", getFontSize());
+         }
+ 
+     protected:
+-        void setPropertyOverride(const std::string& _key, const std::string& _value) override
++        void setPropertyOverride(std::string_view _key, const std::string_view _value) override
+         {
+             T::setPropertyOverride (_key, _value);
+ 
+diff -up openmw-openmw-0.48.0/components/widgets/imagebutton.cpp.omv~ openmw-openmw-0.48.0/components/widgets/imagebutton.cpp
+--- openmw-openmw-0.48.0/components/widgets/imagebutton.cpp.omv~	2023-11-09 18:43:46.085097085 +0100
++++ openmw-openmw-0.48.0/components/widgets/imagebutton.cpp	2023-11-09 18:44:02.296239521 +0100
+@@ -35,7 +35,7 @@ namespace Gui
+         updateImage();
+     }
+ 
+-    void ImageButton::setPropertyOverride(const std::string &_key, const std::string &_value)
++    void ImageButton::setPropertyOverride(std::string_view _key, const std::string_view _value)
+     {
+         if (_key == "ImageHighlighted")
+             mImageHighlighted = _value;
+diff -up openmw-openmw-0.48.0/components/widgets/imagebutton.hpp.omv~ openmw-openmw-0.48.0/components/widgets/imagebutton.hpp
+--- openmw-openmw-0.48.0/components/widgets/imagebutton.hpp.omv~	2023-11-09 18:43:29.858954567 +0100
++++ openmw-openmw-0.48.0/components/widgets/imagebutton.hpp	2023-11-09 18:43:44.257081027 +0100
+@@ -32,7 +32,7 @@ namespace Gui
+         static bool sDefaultNeedKeyFocus;
+ 
+     protected:
+-        void setPropertyOverride(const std::string& _key, const std::string& _value) override;
++        void setPropertyOverride(std::string_view _key, const std::string_view _value) override;
+         void onMouseLostFocus(MyGUI::Widget* _new) override;
+         void onMouseSetFocus(MyGUI::Widget* _old) override;
+         void onMouseButtonPressed(int _left, int _top, MyGUI::MouseButton _id) override;
+diff -up openmw-openmw-0.48.0/components/widgets/list.cpp.omv~ openmw-openmw-0.48.0/components/widgets/list.cpp
+--- openmw-openmw-0.48.0/components/widgets/list.cpp.omv~	2023-11-09 18:45:24.164959557 +0100
++++ openmw-openmw-0.48.0/components/widgets/list.cpp	2023-11-09 18:45:36.340066731 +0100
+@@ -108,7 +108,7 @@ namespace Gui
+         mScrollView->setViewOffset(MyGUI::IntPoint(0, -viewPosition));
+     }
+ 
+-    void MWList::setPropertyOverride(const std::string &_key, const std::string &_value)
++    void MWList::setPropertyOverride(std::string_view _key, const std::string_view _value)
+     {
+         if (_key == "ListItemSkin")
+             mListItemSkin = _value;
+diff -up openmw-openmw-0.48.0/components/widgets/list.hpp.omv~ openmw-openmw-0.48.0/components/widgets/list.hpp
+--- openmw-openmw-0.48.0/components/widgets/list.hpp.omv~	2023-11-09 18:44:30.417486718 +0100
++++ openmw-openmw-0.48.0/components/widgets/list.hpp	2023-11-09 18:44:46.794630744 +0100
+@@ -49,7 +49,7 @@ namespace Gui
+ 
+         void scrollToTop();
+ 
+-        void setPropertyOverride(const std::string& _key, const std::string& _value) override;
++        void setPropertyOverride(std::string_view _key, const std::string_view _value) override;
+ 
+     protected:
+         void initialiseOverride() override;
+diff -up openmw-openmw-0.48.0/components/myguiplatform/myguiloglistener.cpp.omv~ openmw-openmw-0.48.0/components/myguiplatform/myguiloglistener.cpp
+--- openmw-openmw-0.48.0/components/myguiplatform/myguiloglistener.cpp.omv~	2023-11-09 20:49:46.353823415 +0100
++++ openmw-openmw-0.48.0/components/myguiplatform/myguiloglistener.cpp	2023-11-09 20:50:10.350034037 +0100
+@@ -25,7 +25,7 @@ namespace osgMyGUI
+             mStream.flush();
+     }
+ 
+-    void CustomLogListener::log(const std::string& _section, MyGUI::LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line)
++    void CustomLogListener::log(std::string_view _section, MyGUI::LogLevel _level, const struct tm* _time, std::string_view _message, std::string_view _file, int _line)
+     {
+         if (mStream.is_open())
+         {
+diff -up openmw-openmw-0.48.0/components/myguiplatform/myguiloglistener.hpp.omv~ openmw-openmw-0.48.0/components/myguiplatform/myguiloglistener.hpp
+--- openmw-openmw-0.48.0/components/myguiplatform/myguiloglistener.hpp.omv~	2023-11-09 20:46:28.136077117 +0100
++++ openmw-openmw-0.48.0/components/myguiplatform/myguiloglistener.hpp	2023-11-09 20:47:09.045438593 +0100
+@@ -32,7 +32,7 @@ namespace osgMyGUI
+         void close() override;
+         void flush() override;
+ 
+-        void log(const std::string& _section, MyGUI::LogLevel _level, const struct tm* _time, const std::string& _message, const char* _file, int _line) override;
++        void log(std::string_view _section, MyGUI::LogLevel _level, const struct tm* _time, std::string_view _message, std::string_view _file, int _line) override;
+ 
+         const std::string& getFileName() const { return mFileName; }
+ 
+diff -up openmw-openmw-0.48.0/components/myguiplatform/scalinglayer.cpp.omv~ openmw-openmw-0.48.0/components/myguiplatform/scalinglayer.cpp
+--- openmw-openmw-0.48.0/components/myguiplatform/scalinglayer.cpp.omv~	2023-11-09 20:51:58.265979561 +0100
++++ openmw-openmw-0.48.0/components/myguiplatform/scalinglayer.cpp	2023-11-09 20:52:05.979047044 +0100
+@@ -127,8 +127,8 @@ namespace osgMyGUI
+         {
+             if (info->getName() == "Property")
+             {
+-                const std::string& key = info->findAttribute("key");
+-                const std::string& value = info->findAttribute("value");
++                auto key = info->findAttribute("key");
++                auto value = info->findAttribute("value");
+ 
+                 if (key == "Size")
+                 {
+diff -up openmw-openmw-0.48.0/components/widgets/box.cpp.omv~ openmw-openmw-0.48.0/components/widgets/box.cpp
+--- openmw-openmw-0.48.0/components/widgets/box.cpp.omv~	2023-11-09 20:52:34.539296822 +0100
++++ openmw-openmw-0.48.0/components/widgets/box.cpp	2023-11-09 20:54:15.666180059 +0100
+@@ -9,7 +9,7 @@ namespace Gui
+ {
+     // TODO: Since 3.4.2 MyGUI is supposed to automatically translate tags
+     // If the 3.4.2 become a required minimum version, the ComboBox class may be removed.
+-    void ComboBox::setPropertyOverride(const std::string& _key, const std::string& _value)
++    void ComboBox::setPropertyOverride(std::string_view _key, const std::string_view _value)
+     {
+ #if MYGUI_VERSION >= MYGUI_DEFINE_VERSION(3,4,2)
+         MyGUI::ComboBox::setPropertyOverride (_key, _value);
+@@ -63,7 +63,7 @@ namespace Gui
+         notifySizeChange (this);
+     }
+ 
+-    void AutoSizedTextBox::setPropertyOverride(const std::string& _key, const std::string& _value)
++    void AutoSizedTextBox::setPropertyOverride(std::string_view _key, const std::string_view _value)
+     {
+         if (_key == "ExpandDirection")
+         {
+@@ -125,7 +125,7 @@ namespace Gui
+         setEditStatic(true);
+     }
+ 
+-    void AutoSizedEditBox::setPropertyOverride(const std::string& _key, const std::string& _value)
++    void AutoSizedEditBox::setPropertyOverride(std::string_view _key, const std::string_view _value)
+     {
+         if (_key == "ExpandDirection")
+         {
+@@ -158,7 +158,7 @@ namespace Gui
+         notifySizeChange (this);
+     }
+ 
+-    void AutoSizedButton::setPropertyOverride(const std::string& _key, const std::string& _value)
++    void AutoSizedButton::setPropertyOverride(std::string_view _key, const std::string_view _value)
+     {
+         if (_key == "ExpandDirection")
+         {
+@@ -181,7 +181,7 @@ namespace Gui
+         align();
+     }
+ 
+-    bool Box::_setPropertyImpl(const std::string& _key, const std::string& _value)
++    bool Box::_setPropertyImpl(std::string_view _key, const std::string_view _value)
+     {
+         if (_key == "Spacing")
+             mSpacing = MyGUI::utility::parseValue<int>(_value);
+@@ -280,7 +280,7 @@ namespace Gui
+         }
+     }
+ 
+-    void HBox::setPropertyOverride(const std::string& _key, const std::string& _value)
++    void HBox::setPropertyOverride(std::string_view _key, const std::string_view _value)
+     {
+         if (!Box::_setPropertyImpl (_key, _value))
+             MyGUI::Widget::setPropertyOverride(_key, _value);
+@@ -435,7 +435,7 @@ namespace Gui
+         }
+     }
+ 
+-    void VBox::setPropertyOverride(const std::string& _key, const std::string& _value)
++    void VBox::setPropertyOverride(std::string_view _key, const std::string_view _value)
+     {
+         if (!Box::_setPropertyImpl (_key, _value))
+             MyGUI::Widget::setPropertyOverride(_key, _value);
+diff -up openmw-openmw-0.48.0/components/widgets/box.hpp.omv~ openmw-openmw-0.48.0/components/widgets/box.hpp

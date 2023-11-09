@@ -1,7 +1,7 @@
 Summary:	A reimplementation of The Elder Scrolls III: Morrowind
 Name:		openmw
 Version:	0.48.0
-Release:	5
+Release:	6
 Group:		Games/Adventure
 License:	GPLv3+
 Url:		https://openmw.org
@@ -11,6 +11,7 @@ Source1:	%{name}.rpmlintrc
 #Patch1:		openmw-sigaltstack.patch
 #Patch2:		openmw-0.47.0-gcc12.patch
 #Patch3:		openmw-0.47.0-compile.patch
+Patch0:		openmw-mygui-3.4.3.patch
 BuildRequires:	cmake
 BuildRequires:	ogre
 BuildRequires:	boost-devel
