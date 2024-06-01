@@ -1,0 +1,11 @@
+diff -up openmw-openmw-0.48.0/components/bsa/bsa_file.cpp.omv~ openmw-openmw-0.48.0/components/bsa/bsa_file.cpp
+--- openmw-openmw-0.48.0/components/bsa/bsa_file.cpp.omv~	2024-06-01 20:37:57.933947447 +0200
++++ openmw-openmw-0.48.0/components/bsa/bsa_file.cpp	2024-06-01 20:38:05.170023789 +0200
+@@ -25,6 +25,7 @@
+ 
+ #include <components/files/constrainedfilestream.hpp>
+ 
++#include <algorithm>
+ #include <cassert>
+ 
+ #include <boost/filesystem/path.hpp>

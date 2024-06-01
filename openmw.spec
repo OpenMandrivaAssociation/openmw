@@ -15,6 +15,7 @@ Patch0:		openmw-mygui-3.4.3.patch
 Patch1:		openmw-boost-1.85.patch
 # Not merged by upstream ffmpeg7 patch from: https://gitlab.com/OpenMW/openmw/-/issues/7182#note_1851692705
 Patch2:		openmw-0.48.0-ffmpeg7.patch
+Patch3:		openmw-0.48-libstdc++14.patch
 BuildRequires:	cmake
 BuildRequires:	ogre
 BuildRequires:	boost-devel
