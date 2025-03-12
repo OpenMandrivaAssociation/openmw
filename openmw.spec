@@ -88,7 +88,7 @@ export CXX=g++
 	-DOPENMW_USE_SYSTEM_BULLET=OFF \
 	-DBUILD_UNITTESTS=OFF \
 	-DUSE_QT=TRUE \
- 	-DQT6:BOOL=ON \
+ 	-DDESIRED_QT_VERSION=6 \
 	-DMORROWIND_DATA_FILES=%{_datadir}/games/morrowind
 
 %make_build
