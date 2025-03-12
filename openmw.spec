@@ -1,26 +1,28 @@
+%define oversion 49-rc5
 Summary:	A reimplementation of The Elder Scrolls III: Morrowind
 Name:		openmw
-Version:	0.48.0
-Release:	18
+Version:	0.49.rc5
+Release:	1
 Group:		Games/Adventure
 License:	GPLv3+
 Url:		https://openmw.org
-Source0:	https://github.com/OpenMW/openmw/archive/%{version}/%{name}-%{name}-%{version}.tar.gz
+Source0:	https://gitlab.com/OpenMW/openmw/-/archive/openmw-%{oversion}/openmw-openmw-%{oversion}.tar.bz2
+#Source0:	https://github.com/OpenMW/openmw/archive/%{version}/%{name}-%{name}-%{version}.tar.gz
 Source1:	%{name}.rpmlintrc
 #Patch0:		fix_include.patch
 #Patch1:		openmw-sigaltstack.patch
 #Patch2:		openmw-0.47.0-gcc12.patch
 #Patch3:		openmw-0.47.0-compile.patch
-Patch0:		openmw-mygui-3.4.3.patch
-Patch1:		openmw-boost-1.85.patch
+#Patch0:		openmw-mygui-3.4.3.patch
+#Patch1:		openmw-boost-1.85.patch
 # Not merged by upstream ffmpeg7 patch from: https://gitlab.com/OpenMW/openmw/-/issues/7182#note_1851692705
-Patch2:		openmw-0.48.0-ffmpeg7.patch
-Patch3:		openmw-0.48-libstdc++14.patch
+#Patch2:		openmw-0.48.0-ffmpeg7.patch
+#Patch3:		openmw-0.48-libstdc++14.patch
 BuildRequires:	cmake
 BuildRequires:	ogre
 BuildRequires:	boost-devel
 BuildRequires:	ffmpeg-devel
-%if 1
+%if 0
 BuildRequires:	qt5-devel
 %else
 BuildRequires:  cmake(Qt6)
@@ -59,7 +61,7 @@ implementation of the game's engine and functionality.
 You will still need the original game data to play OpenMW.
 
 %prep
-%autosetup -p1 -n %{name}-%{name}-%{version}
+%autosetup -p1 -n %{name}-%{name}-%{oversion}
 
 # Remove bundled tinyxml files
 rm -f extern/oics/tiny*.
