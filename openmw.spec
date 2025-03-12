@@ -25,6 +25,7 @@ BuildRequires:	ffmpeg-devel
 %if 0
 BuildRequires:	qt5-devel
 %else
+BuildRequires:	qmake-qt6
 BuildRequires:  cmake(Qt6)
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6Network)
