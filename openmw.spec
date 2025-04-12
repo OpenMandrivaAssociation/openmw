@@ -18,6 +18,7 @@ Patch1:		openmw-boost-1.85.patch
 Patch2:		openmw-0.48.0-ffmpeg7.patch
 Patch3:		openmw-0.48-libstdc++14.patch
 BuildRequires:	cmake
+BuildRequires:	ninja
 BuildRequires:	ogre
 BuildRequires:	boost-devel
 BuildRequires:	ffmpeg-devel
@@ -77,8 +78,8 @@ find . -name "*.hpp" -o -name "*.h" -o -name "*.cpp" -o -name "*.c" |xargs sed -
 # Use bundled version of bullet (use_system_bulett=off), because OpenMW 0.46/0.47 require bullet compiled with double precision
 # while OMV version was compiled as single precision. Double cause huge performance hit for all stuff that use bullet.
 # That's why we use here bundled version of bullet with double precision to avoid droping performance for system bullet and rest app that depend on it.
-mkdir -p fetched/bullet
-cp %{S:2} fetched/bullet
+mkdir -p build/_deps/bullet-subbuild/bullet-populate-prefix/src/
+cp %{S:2} build/_deps/bullet-subbuild/bullet-populate-prefix/src/
 
 %build
 # As of OpenMW 0.48 crashing Clang at compilation time.
@@ -89,12 +90,13 @@ export CXX=g++
 	-DOPENMW_USE_SYSTEM_BULLET=OFF \
 	-DBUILD_UNITTESTS=OFF \
 	-DUSE_QT=TRUE \
-	-DMORROWIND_DATA_FILES=%{_datadir}/games/morrowind
+	-DMORROWIND_DATA_FILES=%{_datadir}/games/morrowind \
+	-G Ninja
 
-%make_build
+%ninja_build
 
 %install
-%make_install -C build
+%ninja_install -C build
 
 %files
 %{_sysconfdir}/%{name}/
