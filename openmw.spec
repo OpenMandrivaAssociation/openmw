@@ -8,6 +8,7 @@ Url:		https://openmw.org
 Source0:	https://github.com/OpenMW/openmw/archive/%{version}/%{name}-%{name}-%{version}.tar.gz
 Source1:	%{name}.rpmlintrc
 Source2:	https://github.com/bulletphysics/bullet3/archive/refs/tags/3.17.tar.gz
+Source3:	https://github.com/recastnavigation/recastnavigation/archive/e75adf86f91eb3082220085e42dda62679f9a3ea.zip
 #Patch0:		fix_include.patch
 #Patch1:		openmw-sigaltstack.patch
 #Patch2:		openmw-0.47.0-gcc12.patch
@@ -78,8 +79,10 @@ find . -name "*.hpp" -o -name "*.h" -o -name "*.cpp" -o -name "*.c" |xargs sed -
 # Use bundled version of bullet (use_system_bulett=off), because OpenMW 0.46/0.47 require bullet compiled with double precision
 # while OMV version was compiled as single precision. Double cause huge performance hit for all stuff that use bullet.
 # That's why we use here bundled version of bullet with double precision to avoid droping performance for system bullet and rest app that depend on it.
-mkdir -p build/_deps/bullet-subbuild/bullet-populate-prefix/src/
+mkdir -p build/_deps/bullet-subbuild/bullet-populate-prefix/src
 cp %{S:2} build/_deps/bullet-subbuild/bullet-populate-prefix/src/
+mkdir -p build/_deps/recastnavigation-subbuild/recastnavigation-populate-prefix/src
+cp %{S:3} build/_deps/recastnavigation-subbuild/recastnavigation-populate-prefix/src/
 
 %build
 # As of OpenMW 0.48 crashing Clang at compilation time.
