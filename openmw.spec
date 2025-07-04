@@ -91,8 +91,8 @@ cp %{S:2} build/_deps/bullet-subbuild/bullet-populate-prefix/src/
 
 %build
 # As of OpenMW 0.48 crashing Clang at compilation time.
-export CC=gcc
-export CXX=g++
+#export CC=gcc
+#export CXX=g++
 export CMAKE_PREFIX_PATH=%{_libdir}/cmake/Qt6
 export PATH=/usr/lib64/qt6/bin:$PATH
 %cmake  -DOGRE_PLUGIN_DIR=%{_libdir}/OGRE \
