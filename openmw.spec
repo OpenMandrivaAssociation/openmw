@@ -8,7 +8,7 @@ Url:		https://openmw.org
 Source0:	https://github.com/OpenMW/openmw/archive/%{version}/%{name}-%{name}-%{version}.tar.gz
 Source1:	%{name}.rpmlintrc
 Source2:	https://github.com/bulletphysics/bullet3/archive/refs/tags/3.17.tar.gz
-Source3:	https://github.com/recastnavigation/recastnavigation/archive/e75adf86f91eb3082220085e42dda62679f9a3ea.zip
+Source3:	https://github.com/recastnavigation/recastnavigation/archive/recastnavigation-c393777d26d2ff6519ac23612abf8af42678c9dd.zip
 #Patch0:		fix_include.patch
 #Patch1:		openmw-sigaltstack.patch
 #Patch2:		openmw-0.47.0-gcc12.patch
