@@ -1,3 +1,5 @@
+%define _disable_ld_no_undefined 1
+
 Summary:	A reimplementation of The Elder Scrolls III: Morrowind
 Name:		openmw
 Version:	0.49.0
@@ -19,7 +21,6 @@ Source2:	https://github.com/bulletphysics/bullet3/archive/refs/tags/3.17.tar.gz
 #Patch2:		openmw-0.48.0-ffmpeg7.patch
 #Patch3:		openmw-0.48-libstdc++14.patch
 BuildRequires:	cmake
-BuildRequires:	mold
 BuildRequires:	ninja
 BuildRequires:	ogre
 BuildRequires:	boost-devel
@@ -94,7 +95,6 @@ cp %{S:2} build/_deps/bullet-subbuild/bullet-populate-prefix/src/
 # As of OpenMW 0.48 crashing Clang at compilation time.
 #export CC=gcc
 #export CXX=g++
-export LD=mold
 export CMAKE_PREFIX_PATH=%{_libdir}/cmake/Qt6
 export PATH=/usr/lib64/qt6/bin:$PATH
 %cmake  -DOGRE_PLUGIN_DIR=%{_libdir}/OGRE \
