@@ -1,7 +1,7 @@
 Summary:	A reimplementation of The Elder Scrolls III: Morrowind
 Name:		openmw
-Version:	0.48.0
-Release:	22
+Version:	0.49.0
+Release:	1
 Group:		Games/Adventure
 License:	GPLv3+
 Url:		https://openmw.org
@@ -13,17 +13,17 @@ Source3:	https://github.com/recastnavigation/recastnavigation/archive/e75adf86f9
 #Patch1:		openmw-sigaltstack.patch
 #Patch2:		openmw-0.47.0-gcc12.patch
 #Patch3:		openmw-0.47.0-compile.patch
-Patch0:		openmw-mygui-3.4.3.patch
-Patch1:		openmw-boost-1.85.patch
+#Patch0:		openmw-mygui-3.4.3.patch
+#Patch1:		openmw-boost-1.85.patch
 # Not merged by upstream ffmpeg7 patch from: https://gitlab.com/OpenMW/openmw/-/issues/7182#note_1851692705
-Patch2:		openmw-0.48.0-ffmpeg7.patch
-Patch3:		openmw-0.48-libstdc++14.patch
+#Patch2:		openmw-0.48.0-ffmpeg7.patch
+#Patch3:		openmw-0.48-libstdc++14.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
 BuildRequires:	ogre
 BuildRequires:	boost-devel
 BuildRequires:	ffmpeg-devel
-%if 1
+%if 0
 BuildRequires:	qt5-devel
 %else
 BuildRequires:  cmake(Qt6)
