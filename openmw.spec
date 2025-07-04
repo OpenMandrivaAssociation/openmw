@@ -8,7 +8,7 @@ Url:		https://openmw.org
 Source0:	https://github.com/OpenMW/openmw/archive/%{version}/%{name}-%{name}-%{version}.tar.gz
 Source1:	%{name}.rpmlintrc
 Source2:	https://github.com/bulletphysics/bullet3/archive/refs/tags/3.17.tar.gz
-Source3:	https://github.com/recastnavigation/recastnavigation/archive/recastnavigation-c393777d26d2ff6519ac23612abf8af42678c9dd.zip
+#Source3:	https://github.com/recastnavigation/recastnavigation/archive/recastnavigation-c393777d26d2ff6519ac23612abf8af42678c9dd.zip
 #Patch0:		fix_include.patch
 #Patch1:		openmw-sigaltstack.patch
 #Patch2:		openmw-0.47.0-gcc12.patch
@@ -48,6 +48,7 @@ BuildRequires:	pkgconfig(MYGUI)
 BuildRequires:	pkgconfig(OGRE)
 BuildRequires:	pkgconfig(OIS)
 BuildRequires:	pkgconfig(openal)
+BuildRequires:	pkgconfig(recastnavigation)
 BuildRequires:	pkgconfig(sdl2)
 BuildRequires:	pkgconfig(sndfile)
 BuildRequires:	pkgconfig(sqlite3)
@@ -85,8 +86,8 @@ find . -name "*.hpp" -o -name "*.h" -o -name "*.cpp" -o -name "*.c" |xargs sed -
 # That's why we use here bundled version of bullet with double precision to avoid droping performance for system bullet and rest app that depend on it.
 mkdir -p build/_deps/bullet-subbuild/bullet-populate-prefix/src
 cp %{S:2} build/_deps/bullet-subbuild/bullet-populate-prefix/src/
-mkdir -p build/_deps/recastnavigation-subbuild/recastnavigation-populate-prefix/src
-cp %{S:3} build/_deps/recastnavigation-subbuild/recastnavigation-populate-prefix/src/
+#mkdir -p build/_deps/recastnavigation-subbuild/recastnavigation-populate-prefix/src
+#cp %{S:3} build/_deps/recastnavigation-subbuild/recastnavigation-populate-prefix/src/
 
 %build
 # As of OpenMW 0.48 crashing Clang at compilation time.
@@ -97,6 +98,7 @@ export PATH=/usr/lib64/qt6/bin:$PATH
 %cmake  -DOGRE_PLUGIN_DIR=%{_libdir}/OGRE \
 	-DUSE_SYSTEM_TINYXML=ON \
 	-DOPENMW_USE_SYSTEM_BULLET=OFF \
+ 	-DOPENMW_USE_SYSTEM_RECASTNAVIGATION=ON \
 	-DBUILD_UNITTESTS=OFF \
 	-DUSE_QT=TRUE \
   	-DQT_MAJOR_VERSION=6 \
