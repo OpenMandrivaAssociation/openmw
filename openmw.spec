@@ -1,3 +1,5 @@
+%global _lto_cflags %{nil}
+
 Summary:	A reimplementation of The Elder Scrolls III: Morrowind
 Name:		openmw
 Version:	0.49.0
