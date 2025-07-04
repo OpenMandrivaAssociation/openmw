@@ -33,6 +33,8 @@ BuildRequires:  cmake(Qt6Network)
 BuildRequires:	cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6OpenGL)
 BuildRequires:  cmake(Qt6OpenGLWidgets)
+BuildRequires:	qt6-qtbase-theme-gtk3
+BuildRequires:	cmake(Qt6Linguist)
 %endif
 BuildRequires:	pkgconfig(bullet)
 BuildRequires:	pkgconfig(openscenegraph)
