@@ -26,6 +26,7 @@ BuildRequires:	ffmpeg-devel
 %if 0
 BuildRequires:	qt5-devel
 %else
+BuildRequires:	qmake-qt6
 BuildRequires:  cmake(Qt6)
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6Network)
@@ -93,6 +94,7 @@ export CXX=g++
 	-DOPENMW_USE_SYSTEM_BULLET=OFF \
 	-DBUILD_UNITTESTS=OFF \
 	-DUSE_QT=TRUE \
+ 	-DDESIRED_QT_VERSION=6 \
 	-DMORROWIND_DATA_FILES=%{_datadir}/games/morrowind \
 	-G Ninja
 
