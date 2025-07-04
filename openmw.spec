@@ -96,6 +96,7 @@ export CXX=g++
 	-DUSE_QT=TRUE \
  	-DQT6:BOOL=ON \
  	-DDESIRED_QT_VERSION=6 \
+  	-DQT_MAJOR_VERSION=6 \
 	-DMORROWIND_DATA_FILES=%{_datadir}/games/morrowind \
 	-G Ninja
 
