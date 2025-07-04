@@ -89,13 +89,13 @@ cp %{S:3} build/_deps/recastnavigation-subbuild/recastnavigation-populate-prefix
 # As of OpenMW 0.48 crashing Clang at compilation time.
 export CC=gcc
 export CXX=g++
+export CMAKE_PREFIX_PATH=%{_libdir}/cmake/Qt6
+export PATH=/usr/lib64/qt6/bin:$PATH
 %cmake  -DOGRE_PLUGIN_DIR=%{_libdir}/OGRE \
 	-DUSE_SYSTEM_TINYXML=ON \
 	-DOPENMW_USE_SYSTEM_BULLET=OFF \
 	-DBUILD_UNITTESTS=OFF \
 	-DUSE_QT=TRUE \
- 	-DQT6:BOOL=ON \
- 	-DDESIRED_QT_VERSION=6 \
   	-DQT_MAJOR_VERSION=6 \
 	-DMORROWIND_DATA_FILES=%{_datadir}/games/morrowind \
 	-G Ninja
