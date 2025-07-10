@@ -1,5 +1,5 @@
-%define _disable_ld_no_undefined 1
-%define _disable_lto 1
+#define _disable_ld_no_undefined 1
+#define _disable_lto 1
 
 Summary:	A reimplementation of The Elder Scrolls III: Morrowind
 Name:		openmw
@@ -11,24 +11,12 @@ Url:		https://openmw.org
 Source0:	https://github.com/OpenMW/openmw/archive/%{version}/%{name}-%{name}-%{version}.tar.gz
 Source1:	%{name}.rpmlintrc
 Source2:	https://github.com/bulletphysics/bullet3/archive/refs/tags/3.17.tar.gz
-#Source3:	https://github.com/recastnavigation/recastnavigation/archive/recastnavigation-c393777d26d2ff6519ac23612abf8af42678c9dd.zip
-#Patch0:		fix_include.patch
-#Patch1:		openmw-sigaltstack.patch
-#Patch2:		openmw-0.47.0-gcc12.patch
-#Patch3:		openmw-0.47.0-compile.patch
-#Patch0:		openmw-mygui-3.4.3.patch
-#Patch1:		openmw-boost-1.85.patch
-# Not merged by upstream ffmpeg7 patch from: https://gitlab.com/OpenMW/openmw/-/issues/7182#note_1851692705
-#Patch2:		openmw-0.48.0-ffmpeg7.patch
-#Patch3:		openmw-0.48-libstdc++14.patch
+
 BuildRequires:	cmake
 BuildRequires:	ninja
 BuildRequires:	ogre
 BuildRequires:	boost-devel
 BuildRequires:	ffmpeg-devel
-%if 0
-BuildRequires:	qt5-devel
-%else
 BuildRequires:	qmake-qt6
 BuildRequires:  cmake(Qt6)
 BuildRequires:  cmake(Qt6Core)
@@ -39,7 +27,6 @@ BuildRequires:  cmake(Qt6OpenGLWidgets)
 BuildRequires:  cmake(Qt6Svg)
 BuildRequires:	qt6-qtbase-theme-gtk3
 BuildRequires:	cmake(Qt6Linguist)
-%endif
 BuildRequires:	pkgconfig(bullet)
 BuildRequires:	pkgconfig(openscenegraph)
 BuildRequires:	pkgconfig(openscenegraph-osg)
@@ -89,13 +76,11 @@ sed -e 's/"tinyxml.h"/<tinyxml.h>/g' \
 # That's why we use here bundled version of bullet with double precision to avoid droping performance for system bullet and rest app that depend on it.
 mkdir -p build/_deps/bullet-subbuild/bullet-populate-prefix/src
 cp %{S:2} build/_deps/bullet-subbuild/bullet-populate-prefix/src/
+# replaced with system library
 #mkdir -p build/_deps/recastnavigation-subbuild/recastnavigation-populate-prefix/src
 #cp %{S:3} build/_deps/recastnavigation-subbuild/recastnavigation-populate-prefix/src/
 
 %build
-# As of OpenMW 0.48 crashing Clang at compilation time.
-#export CC=gcc
-#export CXX=g++
 export CMAKE_PREFIX_PATH=%{_libdir}/cmake/Qt6
 export PATH=/usr/lib64/qt6/bin:$PATH
 %cmake  -DOGRE_PLUGIN_DIR=%{_libdir}/OGRE \
