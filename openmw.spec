@@ -72,6 +72,7 @@ sed -e 's/"tinyxml.h"/<tinyxml.h>/g' \
 
 # Fix for boost 1.89
 sed -i -e 's/\<system\>//' -e 's/  */ /g' CMakeLists.txt
+sed -i '/Boost::system/d' components/CMakeLists.txt
 
 #find . -name "*.hpp" -o -name "*.h" -o -name "*.cpp" -o -name "*.c" |xargs sed -i -e '/include.*MyGUI/i#include <cstdint>'
 
