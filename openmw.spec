@@ -87,6 +87,8 @@ cp %{S:2} build/_deps/bullet-subbuild/bullet-populate-prefix/src/
 #cp %{S:3} build/_deps/recastnavigation-subbuild/recastnavigation-populate-prefix/src/
 
 %build
+export CC=gcc
+export CXX=g++
 export CMAKE_PREFIX_PATH=%{_libdir}/cmake/Qt6
 export PATH=/usr/lib64/qt6/bin:$PATH
 export CXXFLAGS="%{optflags} -fpermissive"
