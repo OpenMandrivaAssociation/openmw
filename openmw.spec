@@ -89,6 +89,7 @@ cp %{S:2} build/_deps/bullet-subbuild/bullet-populate-prefix/src/
 %build
 export CMAKE_PREFIX_PATH=%{_libdir}/cmake/Qt6
 export PATH=/usr/lib64/qt6/bin:$PATH
+export CXXFLAGS="%{optflags} -fpermissive"
 %cmake  -DOGRE_PLUGIN_DIR=%{_libdir}/OGRE \
 	-DUSE_SYSTEM_TINYXML=ON \
 	-DOPENMW_USE_SYSTEM_BULLET=OFF \
