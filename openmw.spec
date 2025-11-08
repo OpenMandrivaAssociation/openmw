@@ -52,7 +52,7 @@ Requires:	ogre
 Requires:	openscenegraph-plugins
 
 %patchlist
-#openmw-clang-21.patch
+openmw-clang-21.patch
 
 %description
 OpenMW is an engine for 2002's game The Elder Scrolls 3: Morrowind.
