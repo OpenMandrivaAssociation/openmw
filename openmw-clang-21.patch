@@ -1,24 +1,7 @@
-diff -up openmw-openmw-0.49.0/components/files/qtconversion.cpp.omv~ openmw-openmw-0.49.0/components/files/qtconversion.cpp
---- openmw-openmw-0.49.0/components/files/qtconversion.cpp.omv~	2025-09-30 00:12:38.751012072 +0200
-+++ openmw-openmw-0.49.0/components/files/qtconversion.cpp	2025-09-30 00:17:59.225267961 +0200
-@@ -18,11 +18,11 @@ QString Files::pathToQString(std::filesy
- std::filesystem::path Files::pathFromQString(QStringView path)
- {
-     const auto tmp = path.toUtf8();
--    return std::filesystem::path{ Misc::StringUtils::stringToU8String(tmp) };
-+    return std::filesystem::path{ Misc::StringUtils::stringToU8String(static_cast<const char*>(tmp)) };
- }
- 
- std::filesystem::path Files::pathFromQString(QString&& path)
- {
-     const auto tmp = path.toUtf8();
--    return std::filesystem::path{ Misc::StringUtils::stringToU8String(tmp) };
-+    return std::filesystem::path{ Misc::StringUtils::stringToU8String(static_cast<const char *>(tmp)) };
- }
-diff -up openmw-openmw-0.49.0/components/sceneutil/texturetype.hpp.omv~ openmw-openmw-0.49.0/components/sceneutil/texturetype.hpp
---- openmw-openmw-0.49.0/components/sceneutil/texturetype.hpp.omv~	2025-09-30 00:03:59.387147290 +0200
-+++ openmw-openmw-0.49.0/components/sceneutil/texturetype.hpp	2025-09-30 00:04:12.407089056 +0200
-@@ -18,7 +18,7 @@ namespace SceneUtil
+diff -uraN openmw-openmw-0.50.0/components/sceneutil/texturetype.hpp omv-openmw-openmw-0.50.0/components/sceneutil/texturetype.hpp
+--- openmw-openmw-0.50.0/components/sceneutil/texturetype.hpp	2025-10-28 18:14:40.000000000 +0100
++++ omv-openmw-openmw-0.50.0/components/sceneutil/texturetype.hpp	2025-11-08 17:52:00.608597837 +0100
+@@ -18,7 +18,7 @@
          {
          }
  
@@ -27,20 +10,3 @@ diff -up openmw-openmw-0.49.0/components/sceneutil/texturetype.hpp.omv~ openmw-o
          META_StateAttribute(SceneUtil, TextureType, AttributeType)
  
          bool isTextureAttribute() const override { return true; }
-diff -up openmw-openmw-0.49.0/components/vfs/qtconversion.cpp.omv~ openmw-openmw-0.49.0/components/vfs/qtconversion.cpp
---- openmw-openmw-0.49.0/components/vfs/qtconversion.cpp.omv~	2025-09-30 00:15:56.769047327 +0200
-+++ openmw-openmw-0.49.0/components/vfs/qtconversion.cpp	2025-09-30 00:16:26.745100114 +0200
-@@ -16,11 +16,11 @@ QString VFS::Path::normalizedToQString(N
- VFS::Path::Normalized VFS::Path::normalizedFromQString(QStringView path)
- {
-     const auto tmp = path.toUtf8();
--    return Normalized{ tmp };
-+    return Normalized{ static_cast<const char*>(tmp) };
- }
- 
- VFS::Path::Normalized VFS::Path::normalizedFromQString(QString&& path)
- {
-     const auto tmp = path.toUtf8();
--    return Normalized{ tmp };
-+    return Normalized{ static_cast<const char*>(tmp) };
- }
