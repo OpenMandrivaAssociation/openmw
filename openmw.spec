@@ -4,7 +4,7 @@
 Summary:	A reimplementation of The Elder Scrolls III: Morrowind
 Name:		openmw
 Version:	0.51.0
-Release:	1
+Release:	2
 Group:		Games/Adventure
 License:	GPLv3+
 Url:		https://openmw.org
@@ -63,14 +63,16 @@ You will still need the original game data to play OpenMW.
 %prep
 %autosetup -p1 -n %{name}-%{name}-%{version}
 
-# Remove bundled tinyxml files
+# Remove bundled tinyxml files (path went away in 0.51)
 rm -f extern/oics/tiny*.
 # We don't install license files
 sed -e '/LICDIR/d' -i CMakeLists.txt
-# Use the system tinyxml headers
-sed -e 's/"tinyxml.h"/<tinyxml.h>/g' \
-	-e 's/"tinystr.h"/<tinystr.h>/g' \
-	-i extern/oics/ICSPrerequisites.h
+# Use the system tinyxml headers when the bundled OICS copy is present
+if [ -f extern/oics/ICSPrerequisites.h ]; then
+	sed -e 's/"tinyxml.h"/<tinyxml.h>/g' \
+		-e 's/"tinystr.h"/<tinystr.h>/g' \
+		-i extern/oics/ICSPrerequisites.h
+fi
 
 # Fix for boost 1.89
 sed -i -e 's/\<system\>//' -e 's/  */ /g' CMakeLists.txt
