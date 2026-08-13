@@ -3,12 +3,12 @@
 
 Summary:	A reimplementation of The Elder Scrolls III: Morrowind
 Name:		openmw
-Version:	0.50.0
-Release:	5
+Version:	0.51.0
+Release:	1
 Group:		Games/Adventure
 License:	GPLv3+
 Url:		https://openmw.org
-Source0:	https://github.com/OpenMW/openmw/archive/%{version}/%{name}-%{name}-%{version}.tar.gz
+Source0:	https://github.com/OpenMW/openmw/archive/refs/tags/openmw-%{version}/%{name}-%{name}-%{version}.tar.gz
 Source1:	%{name}.rpmlintrc
 Source2:	https://github.com/bulletphysics/bullet3/archive/refs/tags/3.17.tar.gz
 
@@ -52,7 +52,6 @@ Requires:	ogre
 Requires:	openscenegraph-plugins
 
 %patchlist
-openmw-clang-21.patch
 
 %description
 OpenMW is an engine for 2002's game The Elder Scrolls 3: Morrowind.
