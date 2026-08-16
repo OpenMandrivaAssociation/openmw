@@ -4,7 +4,7 @@
 Summary:	A reimplementation of The Elder Scrolls III: Morrowind
 Name:		openmw
 Version:	0.51.0
-Release:	4
+Release:	5
 Group:		Games/Adventure
 License:	GPLv3+
 Url:		https://openmw.org
